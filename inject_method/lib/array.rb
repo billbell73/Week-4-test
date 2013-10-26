@@ -119,6 +119,15 @@ class Array
 		accumulator
 	end
 
+	def takes_block_13(initial)
+		# first, *rest = self
+		accumulator = initial
+		self.each do |value|
+			accumulator = yield accumulator, value
+		end
+		accumulator
+	end
+
 
 
 

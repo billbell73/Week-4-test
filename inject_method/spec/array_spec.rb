@@ -109,6 +109,11 @@ describe 'reopening of Array class' do
 		expect(["h", "e", "l", "l", "o"].takes_block_11{ |memo, char| memo.concat char }).to eq "hello"
 	end
 
+	it 'can inject-add arrays with parameter' do
+		expect(array.takes_block_13(10){ |product, val| product + val }).to eq 20
+	end
+
+
 	it "inject plus some other stuff - block 11" do
 		expect([65,66,67].takes_block_11 {|memo, number| memo.to_s + number.chr}).to eq '65BC'
 	end

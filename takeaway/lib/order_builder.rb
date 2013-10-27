@@ -4,7 +4,7 @@ class OrderBuilder
 		@takeaway = takeaway
 		@menu = @takeaway.menu
 		@input_lookup = {"M" => :margarita, "A" => :anchovy, "H" => :hawaiian}
-		return_order
+		# return_order
 	end
 
 	attr_reader :menu

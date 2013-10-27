@@ -3,12 +3,11 @@ require 'money'
 describe Money do
 
 	let(:takeaway) {double :takeaway}
-
 	let(:money) {Money.new(10, takeaway)}
-	
+
 	it 'asks for input from user' do
-		money.stub(ask_for_money: '12.00')
-		expect(money.ask_for_money).to eq "12.00"
+		money.stub(ask_for_money_and_get_input: '12.00')
+		expect(money.ask_for_money_and_get_input).to eq "12.00"
 	end
 
 	it 'checks whether money tendered correct' do

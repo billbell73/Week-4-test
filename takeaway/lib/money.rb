@@ -13,7 +13,6 @@ class Money
 		end
 	end
 
-
 	def ask_for_money_and_get_input
 		puts
 		puts "Thank you for your order."
@@ -25,7 +24,5 @@ class Money
 	def money_correct? amount_tendered
 		amount_tendered.to_f == @amount_expected
 	end
-
-
 
 end

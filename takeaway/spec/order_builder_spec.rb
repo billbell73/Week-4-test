@@ -7,6 +7,10 @@ describe OrderBuilder do
 	 # let (:menu) { { margarita: 6.5, mushroom: 7, hawaiian: 7.5 } }
 	let (:order_builder) { OrderBuilder.new(takeaway) }
 
+	before do
+  	order_builder.stub(get_order?: nil)
+  end
+
 	it 'displays possible orders' do
 		expect(order_builder.menu[:mushroom]).to eq 7
 	end
@@ -27,6 +31,7 @@ describe OrderBuilder do
 		end
 
 		it 'can split whole order into separate pizza orders' do
+			order_builder.stub(get_order?: "3M")
 			total_order = "3M, 2A, 1H"
 			expect(order_builder.convert_user_input_format total_order).to eq ["3M", "2A", "1H"]
 		end

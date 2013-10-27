@@ -52,15 +52,46 @@ describe OrderBuilder do
 			expect(order_builder.input_lookup pizza_type).to eq :anchovy
 		end
 
-		it 'can transform pizza type and quantity into format readable by takeaway' do
+		it 'can translate separated pizza type and quantity into format readable by Takeaway' do
 			pizza_type = "H"
 			quantity = 2
-			expect(order_builder.process_sub_order quantity, pizza_type).to eq [:hawaiian, :hawaiian]
+			expect(order_builder.quantify_sub_order quantity, pizza_type).to eq [:hawaiian, :hawaiian]
 		end
 
-		# it 'can '
+		it 'can translate joined pizza type and quantity into format readable by Takeaway' do
+			pizza_type_and_quantity = "2m"
+			expect(order_builder.process_sub_order pizza_type_and_quantity).to eq [:margarita, :margarita]
+		end
+
+		it 'can take in user input and produce processed order' do
+			order = "1M, 2A 1H"
+			expect(order_builder.process_user_input order).to eq [:margarita, :anchovy, :anchovy, :hawaiian]
+		end
+
+		it 'can take in user input and produce processed order, different example' do
+			order = "1M, 2A 1H"
+			expect(order_builder.process_user_input order).to eq [:margarita, :anchovy, :anchovy, :hawaiian]
+		end
+
+		it 'can attempt and process clarification of order' do
+			order_builder.stub(get_order: '1m 1h')
+			expect(order_builder.try_again_for_input).to eq [:margarita, :hawaiian]
+		end
+
+		it 'will clarify and process order if initial order unreadable' do
+			order_builder.stub(get_order: '2h')
+			order = '4s'
+			expect(order_builder.process_user_input order).to eq [:hawaiian, :hawaiian]
+		end
+
+		it 'can display order, get order and process order' do
+			order_builder.stub(get_order: '2a')
+			expect(order_builder.get_and_process_order).to eq [:anchovy, :anchovy]
+		end		
  
 	end 
+
+
 
 	context 'Pizza order - order not understood first time' do
 

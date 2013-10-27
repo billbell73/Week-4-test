@@ -3,3 +3,13 @@ require './order_builder'
 order_builder = OrderBuilder.new({ margarita: 6.5, mushroom: 7, hawaiian: 7.5})
 
 order_builder.get_and_process_order
+
+
+require './money'
+
+money = Money.new()
+
+
+require './takeaway'
+takeaway = Takeaway.new
+takeaway.start

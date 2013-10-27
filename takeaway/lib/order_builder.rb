@@ -1,14 +1,17 @@
 class OrderBuilder
 
-	def initialize(menu)
-		@menu = menu
+	def initialize(takeaway)
+		@takeaway = takeaway
+		@menu = @takeaway.menu
 		@input_lookup = {"M" => :margarita, "A" => :anchovy, "H" => :hawaiian}
+		return_order
 	end
 
 	attr_reader :menu
 
-	def order_from takeaway, choices, total
-		takeaway.order choices, total
+	def return_order
+		order = get_and_process_order
+		@takeaway.receive order
 	end
 
 	def get_and_process_order
@@ -18,7 +21,7 @@ class OrderBuilder
 
 	def display_menu_to_customer
 		puts 
-		puts "Pizza - Menu"
+		puts "Will's Pizzas - Menu"
 		puts "Margarita pizza (M): £6.50"
 		puts "Anchovy pizza (A):  £7.00"
 		puts "Hawaiian pizza (H):  £7.50"
@@ -28,7 +31,7 @@ class OrderBuilder
 		puts
 		puts "What type of pizza would you like?"
 		puts "[for example, \"1A\" equals 1 Anchovy pizza..."
-		puts "... and, \"3M, 1A, 2H\" equals 3 Margarita pizzas, 1 Anchovy pizza & 2 Hawaiian pizzas]"
+		puts "or \"3M, 1A, 2H\" equals 3 Margarita pizzas, 1 Anchovy pizza & 2 Hawaiian pizzas]"
 		order = gets.chomp()
 	end
 
@@ -46,11 +49,11 @@ class OrderBuilder
 	end
 
 	def convert_user_input_format total_order
-		total_order.scan(/\d+\w/)
+		total_order.scan(/\w+/)
 	end
 
 	def input_understood? pizza_type_and_quantity
-		pizza_type_and_quantity =~ /\d+[MAH]/i
+		pizza_type_and_quantity =~ /\d[MAH]/i
 	end
 
 	def input_lookup pizza_type

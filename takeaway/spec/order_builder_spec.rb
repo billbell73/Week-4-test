@@ -2,19 +2,13 @@ require 'order_builder'
 
 describe OrderBuilder do
 
-	let (:menu) { { margarita: 6.5, mushroom: 7, hawaiian: 7.5 } }
-	let (:order_builder) { OrderBuilder.new(menu) }
+	let (:takeaway) { double :takeaway, {:menu => {margarita: 6.5, mushroom: 7, hawaiian: 7.5 }, :receive => nil } }
+
+	 # let (:menu) { { margarita: 6.5, mushroom: 7, hawaiian: 7.5 } }
+	let (:order_builder) { OrderBuilder.new(takeaway) }
 
 	it 'displays possible orders' do
 		expect(order_builder.menu[:mushroom]).to eq 7
-	end
-
-	it 'creates order' do
-		takeaway = double :takeaway
-		choices = [:margarita, :mushroom]
-		total = 13.5
-		expect(takeaway).to receive(:order)
-		order_builder.order_from takeaway, choices, total
 	end
 
 	context 'Margarita pizza order' do
@@ -37,6 +31,11 @@ describe OrderBuilder do
 			expect(order_builder.convert_user_input_format total_order).to eq ["3M", "2A", "1H"]
 		end
 
+		it 'will split anything separated by spaces' do
+			total_order = "zz ff"
+			expect(order_builder.convert_user_input_format total_order).to eq ["zz", "ff"]
+		end
+
 		it 'can tell if pizza type and quantity understood' do
 			pizza_type_and_quantity = "3A"
 			expect(order_builder.input_understood? pizza_type_and_quantity).to be_true
@@ -44,6 +43,11 @@ describe OrderBuilder do
 
 		it 'can tell if pizza type and quantity not understood' do
 			pizza_type_and_quantity = "3B"
+			expect(order_builder.input_understood? pizza_type_and_quantity).to be_false
+		end
+
+		it 'can tell if pizza type and quantity not understood, different example' do
+			pizza_type_and_quantity = "m"
 			expect(order_builder.input_understood? pizza_type_and_quantity).to be_false
 		end
 

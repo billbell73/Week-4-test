@@ -7,16 +7,19 @@ describe 'Takeaway' do
 	let (:takeaway) { Takeaway.new }
 
 	let (:order_1) { [:margarita, :margarita] }
-	let (:order_2) { [:margarita, :mushroom] }
+	let (:order_2) { [:margarita, :anchovy] }
 	
 
-	xit 'can calculate the correct price for an order' do
+	it 'can calculate the correct price for an order' do
 			expect(takeaway.calculate_price_of(order_1)).to eq 13.0
+	end
+
+	it 'can calculate the correct price for an order, different example' do
+			expect(takeaway.calculate_price_of(order_2)).to eq 13.5
 	end
 
 	xit 'can receive an order and send expected price to Money' do
 		money = double :money
-		expected_price = takeaway.calculate_price_of order_1
 		expect(money).to receive(:check_money)
 		takeaway.receive order_1
 	end 

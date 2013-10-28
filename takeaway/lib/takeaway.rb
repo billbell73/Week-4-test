@@ -5,7 +5,7 @@ require_relative 'text_sender'
 class Takeaway
 
 	def initialize
-		@menu = { margarita: 6.5, mushroom: 7, hawaiian: 7.5 }
+		@menu = { margarita: 6.5, anchovy: 7, hawaiian: 7.5 }
 	end
 
 	attr_reader :menu

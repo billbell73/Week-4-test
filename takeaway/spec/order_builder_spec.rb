@@ -63,10 +63,12 @@ describe OrderBuilder do
 
 	it 'can attempt and process clarification of order' do
 		order_builder.stub(get_order: '1m 1h')
+		order_builder.stub(sorry_try_again_message: nil)
 		expect(order_builder.try_again_for_input).to eq [:margarita, :hawaiian]
 	end
 
 	it 'will clarify and process order if initial order unreadable' do
+		order_builder.stub(sorry_try_again_message: nil)
 		order_builder.stub(get_order: '2h')
 		order = '4s'
 		expect(order_builder.process_user_input order).to eq [:hawaiian, :hawaiian]

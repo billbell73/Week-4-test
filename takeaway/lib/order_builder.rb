@@ -73,9 +73,13 @@ class OrderBuilder
 	end
 
 	def try_again_for_input
+		sorry_try_again_message
+		process_user_input get_order
+	end
+
+	def sorry_try_again_message
 		puts
 		puts "Sorry, we did not understand your order."
-		process_user_input get_order
 	end
 
 end

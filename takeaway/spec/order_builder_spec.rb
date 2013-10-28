@@ -74,6 +74,7 @@ describe OrderBuilder do
 
 	it 'can display order, get order and process order' do
 		order_builder.stub(get_order: '2a')
+		order_builder.stub(display_menu_to_customer: nil)
 		expect(order_builder.get_and_process_order).to eq [:anchovy, :anchovy]
 	end		
  
